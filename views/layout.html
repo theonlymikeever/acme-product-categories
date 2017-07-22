@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="/public/custom.css">
+  <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/dist/css/bootstrap.css">
+<!--   <scrpit src="/vendor/bootstrap/dist/js/bootstrap.js"></scrpit>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Acme Products & Categories</title>
+</head>
+<body>
+  <div class="container">
+    {% block content %}
+      Whoops! Something Didn't Load Properly
+    {% endblock %}
+  </div>
+  <footer class="footer">
+    <div class="container">
+      <p class="text-muted">App written  by Mike Kerslake with express, node and too many cups of coffee.</p>
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+  <!-- tab nav functionality -->
+  <script type="text/javascript">
+    $('#category-nav a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+  </script>
+</body>
+</html>
