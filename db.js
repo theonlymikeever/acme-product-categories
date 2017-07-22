@@ -1,41 +1,58 @@
 var Categories = {
-  "Foo Category": [{
-    id: 1,
-    name: 'Foo',
-  },
-  {
-    id: 2,
-    name: 'Foo 2',
-  }],
-  "Bar Category": [{
-    id: 1,
-    name: 'Bar',
-  },
-  {
-    id: 2,
-    name: 'Bar 2',
-  }],
-  "Bazz Category": [{
-    id: 1,
-    name: 'Bazz',
-  },
-  {
-    id: 2,
-    name: 'Bazz 2',
-  }]
+  "Foo Category": [
+    {
+      "name": "foo 1",
+      "id": 1
+    },
+    {
+      "name": "foo 2",
+      "id": 2
+    },
+    {
+      "name": "xyz",
+      "id": 3
+    }
+  ],
+  "Bar Category": [
+    {
+      "name": "bar 1",
+      "id": 1
+    },
+    {
+      "name": "bar 2",
+      "id": 2
+    }
+  ],
+  "abc": []
 };
 
 module.exports = {
   getCategoryNames: function(){
-    return Categories;
+    return Object.keys(Categories);
   },
-  getProductsByCategory: function(id){
-    return Categories.filter(function(product){
-      return this.product.id === id;
+  getProductsByCategory: function(category, id){
+    return Categories[category].filter(function(product){
+      return product.id === id;
+    })[0];
+  },
+  createProduct: function(product, category){
+    //need to figue out error handling
+    var newProduct = {
+      "name": product,
+      "id": Math.round(1000*Math.random())
+    };
+    Categories[category].push(newProduct);
+  },
+  deleteProduct: function(id, category){
+    Categories[category] = Categories[category].filter(function(product){
+      return product.id !== id;
     });
   },
-  createProduct: function(){},
-  deleteProduct: function(){},
-  createCategory: function(){},
-  deleteCategory: function(){}
-}
+  createCategory: function(category){
+    //need to figue out error handling
+    Categories[category] = [];
+  },
+  deleteCategory: function(category){
+    delete Categories[category];
+  }
+};
