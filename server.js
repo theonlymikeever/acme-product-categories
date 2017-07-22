@@ -24,7 +24,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res, next){
   res.render( 'index', { categoryNames: db.getCategoryNames(), showCatForm: true } );
 });
-app.use('/categories', require('./routes/routes'));
+app.use('/categories', require('./routes/'));
 app.use(function(err, req, res, next){
   res.render('error', { error: err});
 });

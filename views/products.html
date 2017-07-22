@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+   <div class='container'>
+      <h1>Products for {{ cat.name }}</h1>
+      <div class='well'>
+        <form action='/products' method='POST'>
+          <div class='form-group'>
+            <input class='form-control' name='name' placeholder='name'/>
+          </div>
+          <div class='form-group'>
+            <input class='form-control' name='description' placeholder='description'/>
+          </div>
+          <div class='form-group'>
+            <input class='form-control' name='rating' placeholder='rating'/>
+          </div>
+          <div class='form-group'>
+            <button class='btn btn-primary'>Save</button>
+          </div>
+        </form>
+      </div>
+      <ul class='list-group'>
+        {% for product in products %}
+          <li class='list-group-item'>
+            <a href='/products/{{ product.id }}'>
+              {{ product.name }}
+            </a>
+            <span class="badge">{{ product.rating }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+{% endblock %}

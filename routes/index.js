@@ -4,24 +4,23 @@ var app = require('express').Router();
 
 // routers
 
-app.get('/categories/:name/products', function(req, res, next){
+app.get('/:name/products', function(req, res, next){
   console.log('success');
-    res.render( 'index', { showProdForm: true } );
+   res.render('products', {categoryNames: db.getCategoryNames()});
 });
 
-app.post('/categories', function(req, res, next){
-  // console.log('success');
-  db.createCategory(req.body);
+app.post('/', function(req, res, next){
+  db.createCategory(req.body.name);
   res.redirect('/');
 });
 
 app.delete('/categories/:name', function(req, res, next){
-  db.deleteCategory(req.params.name * 1);
+  db.deleteCategory(req.params.name);
   res.redirect('/');
 });
 
 app.post('/categories/:name/products/', function(req, res, next){
-  // console.log('success');
+  // res.render('products', { token:token});
 });
 
 app.delete('/categories/:name/products/:id', function(req, res, next){
