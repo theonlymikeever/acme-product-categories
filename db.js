@@ -9,7 +9,7 @@ var Categories = {
       "id": 2
     },
     {
-      "name": "xyz",
+      "name": "foo 3",
       "id": 3
     }
   ],
@@ -23,20 +23,26 @@ var Categories = {
       "id": 2
     }
   ],
-  "abc": []
+  "abc": [
+    {
+      "name": "abc 1",
+      "id": 1
+    }
+  ]
 };
 
 module.exports = {
   getCategoryNames: function(){
     return Object.keys(Categories);
   },
-  getProductsByCategory: function(category, id){
-    return Categories[category].filter(function(product){
-      return product.id === id;
-    })[0];
+  getProductsByCategory: function(category){
+    if(! Categories[category]) throw "Invalid Category";
+    return Categories[category].map(function(product){
+      return product;
+    });
   },
   createProduct: function(product, category){
-    //need to figue out error handling
+    //need to figue out error handling for duplicates
     var newProduct = {
       "name": product,
       "id": Math.round(1000*Math.random())
@@ -49,7 +55,7 @@ module.exports = {
     });
   },
   createCategory: function(category){
-    //need to figue out error handling
+    //need to figue out error handling for duplicates
     Categories[category] = [];
   },
   deleteCategory: function(category){

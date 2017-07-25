@@ -1,31 +1,36 @@
 // requires
 var db = require('../db');
-var app = require('express').Router();
+var router = require('express').Router();
 
 // routers
-
-app.get('/:name/products', function(req, res, next){
-  console.log('success');
-   res.render('products', {categoryNames: db.getCategoryNames()});
+router.get('/:name/products', (req, res, next)=>{
+  const catName = req.params.name;
+  const products = db.getProductsByCategory(catName);
+  res.render('products', { cats: db.getCategoryNames(), catName: catName, products: products, nav: catName });
 });
 
-app.post('/', function(req, res, next){
+router.post('/', function(req, res, next){
+  // console.log('creating cat ');
   db.createCategory(req.body.name);
   res.redirect('/');
 });
 
-app.delete('/categories/:name', function(req, res, next){
+router.delete('/:name', function(req, res, next){
+  // console.log('deleting cat!')
   db.deleteCategory(req.params.name);
   res.redirect('/');
 });
 
-app.post('/categories/:name/products/', function(req, res, next){
-  // res.render('products', { token:token});
+router.post('/:name/products', function(req, res, next){
+  db.createProduct(req.body.name, req.params.name);
+  //'back' redirects back to the referrer
+  res.redirect('back');
 });
 
-app.delete('/categories/:name/products/:id', function(req, res, next){
-  // console.log('success');
+router.delete('/:name/products/:id', function(req, res, next){
+  db.deleteProduct(req.params.id * 1, req.params.name);
+  res.redirect('back');
 });
 
 // export
-module.exports = app;
+module.exports = router;

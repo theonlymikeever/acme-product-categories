@@ -3,17 +3,11 @@
 {% block content %}
 
    <div class='container'>
-      <h1>Products for {{ cat.name }}</h1>
+      <h1>Products for {{ catName }}</h1>
       <div class='well'>
-        <form action='/products' method='POST'>
+        <form action='/categories/{{ catName }}/products' method='POST'>
           <div class='form-group'>
-            <input class='form-control' name='name' placeholder='name'/>
-          </div>
-          <div class='form-group'>
-            <input class='form-control' name='description' placeholder='description'/>
-          </div>
-          <div class='form-group'>
-            <input class='form-control' name='rating' placeholder='rating'/>
+            <input class='form-control' name='name' placeholder='add product'/>
           </div>
           <div class='form-group'>
             <button class='btn btn-primary'>Save</button>
@@ -23,13 +17,18 @@
       <ul class='list-group'>
         {% for product in products %}
           <li class='list-group-item'>
-            <a href='/products/{{ product.id }}'>
-              {{ product.name }}
-            </a>
-            <span class="badge">{{ product.rating }}</span>
+              {{ product.name }}<br><br>
+              <form method="post" action="products/{{ product.id }}?_method=DELETE"">
+              <button class="btn btn-warning">Delete</button>
+              </form>
           </li>
         {% endfor %}
       </ul>
+      <div class="container">
+          <form method="post" action="/categories/{{ catName }}?_method=DELETE"">
+          <button class="btn btn-danger">Delete Category</button>
+          </form>
+      </div>
     </div>
 
 {% endblock %}

@@ -22,7 +22,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 //index, categories route + error handling
 app.get('/', function(req, res, next){
-  res.render( 'index', { categoryNames: db.getCategoryNames(), showCatForm: true } );
+  res.render( 'index', { cats: db.getCategoryNames(), nav: 'home', showCatForm: true } );
 });
 app.use('/categories', require('./routes/'));
 app.use(function(err, req, res, next){
